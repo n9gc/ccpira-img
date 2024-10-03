@@ -1,0 +1,541 @@
+﻿<html lang="ch">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>图片库 -CCPIRA</title>
+    <link rel="icon" type="image/x-icon" href="./ico/formal/110-128.ico" />
+    <script type="text/javascript">
+        document.write('<div id="readyui" style="width: 100%;height: 100%;top: 0;left: 0;position: fixed;background: #fff;z-index: 9999999;"><marquee style="width: 50%;font-size: xxx-large;position: absolute;top: 50%;transform: translateY(-50%);left: 25%;border-left-style: solid;border-right-style: solid;" Scrollamount=50>加载中. . .</marquee></div>');
+        jzw = 0;
+        if ((navigator.userAgent.match(/(phone|iPhone|ios|Android|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+            pc = 0;
+            document.write("<div onclick='style.display=\"none\"' style='width: 100%;height: 100%;top: 0;left: 0;position: fixed;background: #fff;z-index: 99999;text-align: center;font-size: xx-large;'><br /><br /><br /><br /><h1>建议使用电脑进行浏览</h1><br /><button style='font-size:xxx-large;'>确定</button></div>");
+        } else {
+            pc = 1;
+            document.write("<style></style>")
+        }
+        function cleanui() {
+            if (jzw) {
+                var coutdq = Math.floor(blist.clientWidth / (dx * onecm.clientWidth))
+                var knames = document.getElementsByName("bblock")
+                for (i = 0; i < knames.length; i++) {
+                    knames[i].style.width = 100 / coutdq + "%";
+                    knames[i].style.minWidth = dx + "cm";
+                    knames[i].style.height = dx + "cm";
+                }
+                var hg = window.innerHeight - th1 - 1.2 * onecm.clientWidth
+                var knames = document.getElementsByName("clist")
+                knames[0].style.height = hg + "px"
+                var ds = 0.5 * onecm.clientWidth
+                knames[1].style.height = (hg + th1 - th2 + ds) + "px"
+                console.log(th2 - th1)
+                knames[1].style.marginTop = -ds + "px"
+            }
+        }
+        function cln(n) {
+            n = n.replace(/ /g, "")
+            n = n.replace(/\n/g, "")
+            n = n.replace(/	/g, "")
+            n = n.split(";");
+            n.pop();
+            return n
+        }
+        function tlistf(n) {
+            n = cln(n)
+            var zq = 0, st = "", mz = [], sl = 0;
+            for (q = 0; q < n.length; q++) {
+                var mq = n[q].replace(/^\$+/g, "");
+                dq = n[q].length - mq.length;
+                sf = ["style='display: none;'", ""]
+                if (dq > zq) {
+                    for (i = 0; i < dq - zq; i++) st = st + "<ul id='ul" + sl + "' " + sf[zh(dq == 1)] + ">";
+                    sl++
+                } else if (dq < zq) for (i = 0; i < zq - dq; i++) st = st + "</ul>";
+                zq = dq;
+                mq = mq.split(",");
+                mz[dq] = mq[0]
+                sy = ""
+                for (i = 1; i <= dq; i++) sy = sy + mz[i]
+                sy = [" href='javascript: ;' onclick='ll(\"" + sy + "\",\"" + mq[1] + "\")'", ""]
+                if (q + 1 != n.length) {
+                    var xmq = n[q + 1].replace(/^\$+/g, "");
+                    xdq = n[q + 1].length - xmq.length;
+                    if (xdq > dq) {
+                        st = st + "<li onclick='ab" + sl + ".click()'><a onclick='zd(" + sl + ")' id='ab" + sl + "'></a><input type='checkbox' id='cb" + sl + "' />"
+                        sfa[sl] = 1
+                    }
+                    else st = st + "<li>"
+                } else st = st + "<li>"
+                st = st + "<a" + sy[zh(mq[0][mq[0].length - 1] == "/")] + ">" + mq[1] + "</a></li>";
+            }
+            for (i = 0; i < zq; i++) st = st + "</ul>";
+            return st;
+        }
+        function zblib(n) {
+            N = cln(n)
+            listb("", jcb(N, 0, ""), 0)
+        }
+        function jcb(n, o, t) {
+            var k = [], sfs = 0, cq = 0, dqu = []
+            for (i = 0; i < n.length; i++) {
+                var stt = ""
+                xz = n[i].replace(/^\$+/g, "");
+                dhz = xz.split(",");
+                dq = n[i].length - xz.length;
+                if (dq > cq) {
+                    dqu.push(dhz[0])
+                    cq = dq
+                } else if (dq < cq) {
+                    for (u = 0; u <= cq - dq; u++) dqu.pop()
+                    dqu.push(dhz[0])
+                    cq = dq
+                } else {
+                    dqu.pop()
+                    dqu.push(dhz[0])
+                }
+                for (p = 0; p < dqu.length; p++) stt = stt + dqu[p]
+                if (o != 0) {
+                    if (dq == o && t == stt) sfs = 1;
+                    else if (dq == o) sfs = 0;
+                } else {
+                    sfs = 1;
+                }
+                if (dq == o + 1 && sfs) k.push(xz);
+            }
+            return k;
+        }
+        function listb(x, n, s) {
+            var st = ""
+            if (s) st = '<div name="bblock" title="back/,返回" onmousedown="style.background=\'aqua\'" onmouseup="bdkf(this)"><div class="block" style="transform: rotate(180deg) translateY(0.5cm);">➲</div><div class="blockt">返回</div></div>';
+            for (q = 0; q < n.length; q++) {
+                xz = n[q].split(",");
+                if (xz[0][xz[0].length - 1] == "/") dh = "📂"
+                else dh = "<img style='max-height: 2cm;max-width: 2cm;position: relative;top: 50%;transform: translateY(-50%);' src='" + x + xz[0] + "' />"
+                st = st + '<div name="bblock" title="' + x + xz[0] + ',' + xz[1] + '" onmousedown="style.background=\'aqua\'" onmouseup="bdkf(this)"><div class="block">' + dh + '</div><div class="blockt">' + xz[1] + '</div></div>';
+            }
+            blist.innerHTML = st
+            dqwz.innerHTML = x;
+            cleanui()
+        }
+        function bdkf(n) {
+            n.style.background = ""
+            sy = n.title.split(",")
+            if (sy[0][sy[0].length - 1] == "/") {
+                if (n.title == "back/,返回") {
+                    zdqu.pop()
+                    m = zdqu[zdqu.length - 1]
+                } else {
+                    zdqu.push(sy[0])
+                    m = sy[0]
+                }
+                if (zdqu.length == 0) r = ""
+                else r = zdqu[zdqu.length - 1]
+                listb(r, jcb(N, zdqu.length, m), zdqu.length != 0)
+            } else ll(sy[0], sy[1])
+            cleanui();
+        }
+        function zh(n) {
+            if (n) return 1;
+            else return 0;
+        }
+        function zd(s) {
+            if (sfa[s]) {
+                document.getElementById("ul" + s).style.display = "block"
+                document.getElementById("cb" + s).checked = true
+            } else {
+                document.getElementById("ul" + s).style.display = "none"
+                document.getElementById("cb" + s).checked = false
+            }
+            sfa[s] = 1 - sfa[s]
+        }
+        function ll(u, l) {
+            yt = 1;
+            don.style.display = "block"
+            don.name = url.replace(/[^/]+$/g, "") + u
+            bgp.src = u
+            sdqname.innerHTML = "当前正在查看：" + l + "<br />路径：<a href='" + u + "' style='color: aqua'>http://seventop.top/img/" + u + "</a>";
+            sfcur.style.cursor="move";
+        }
+        function cstf(n) {
+            if (st) {
+                ddqwz.style.display = "none";
+                blist.style.display = "none";
+                tlist.style.display = "block";
+            } else {
+                ddqwz.style.display = "block";
+                blist.style.display = "block";
+                tlist.style.display = "none";
+            }
+            st = 1 - st
+            if (n) cleanui()
+        }
+        var scrollFunc = function (e) {
+            if (yt) {
+                if (ove) {
+                    e = e || window.event;
+                    if (e.wheelDelta) {
+                        wd = e.wheelDelta / 100
+                    } else if (e.detail) {
+                        wd = e.detail / -1
+                    }
+                    count = count + wd
+                    var zr = 100 * Math.pow(2, count / 40)
+                    if (count < -280) count = -280;
+                    bgp.style.width = zr + "%";
+                }
+            }
+        }
+        function scmovewindow(event) {
+            if (scmd && yt) {
+                var event = event || window.event;
+                scposX = event.clientX
+                scposY = event.clientY
+                scac = scdX + scposX - sctdX;
+                scak = scdY + scposY - sctdY;
+                scsmovep(scac, scak);
+            }
+        }
+        function scsmovep(x, y) {
+            bgp.style.marginLeft = x + "px"
+            bgp.style.marginTop = y + "px"
+        }
+        function sctl() {
+            scmd = 1;
+            sctdX = scsbX;
+            sctdY = scsbY;
+        }
+        function scyzkm(event) {
+            var event = event || window.event;
+            scsbX = event.clientX;
+            scsbY = event.clientY;
+        }
+        function cg(n) {
+            window.open(n, "top")
+            mscg.innerHTML = "成功！"
+            setTimeout(function () {
+                mscg.innerHTML = "&#12288;&#12288;&#12288;"
+            }, 1200)
+        }
+        function ready() {
+            zdqu = []
+            listre = []
+            sfa = []
+            scdX = 0
+            scdY = 0
+            scac = 0
+            scak = 0
+            scmd = 0;
+            dx = 3.5;
+            jzw = 1;
+            st = 0;
+            count = -40;
+            yt = 0;
+            ove = 0;
+            yif = 0
+            var knames = document.getElementsByName("clist")
+            th1 = knames[0].offsetTop
+            cstf(0)
+            th2 = knames[1].offsetTop
+            tlist.innerHTML = tlistf(tree.innerHTML)
+            zblib(tree.innerHTML)
+            url = window.location.href || self.location.href || document.URL || document.location;
+            if (url[0] + url[1] + url[2] + url[3] == "http") loc = 0;
+            else loc = 1;
+        }
+        window.onload = function () {
+            ready()
+            look.onmouseover = function () {
+                ove = 1
+            }
+            window.onmousemove = function (event) {
+                scmovewindow(event);
+            }
+            look.onmousemove = function (event) {
+                scyzkm(event);
+            }
+            readyui.style.display = "none";
+        }
+        window.onresize = cleanui
+        if (document.addEventListener) {
+            document.addEventListener('DOMMouseScroll', scrollFunc, false);
+        }
+        window.onmousewheel = document.onmousewheel = scrollFunc;
+    </script>
+    <style>
+        a {
+            font-size: larger;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #menu {
+            width: 35%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            box-shadow: 0.1cm 0px 0.4cm #000;
+            z-index: 3;
+            background: #fff;
+        }
+
+        #look {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 65%;
+            height: 100%;
+            background: #555;
+            z-index: 1;
+            text-align: center;
+        }
+
+        #smenu {
+            margin: 5%;
+            margin-top: 8%;
+            width: 90%;
+            user-select: none;
+        }
+
+        #aologo {
+            background: #555;
+            color: #fff;
+            display: inline-block;
+            width: 96%;
+            text-align: right;
+            position: relative;
+            padding-left: 10%;
+            right: 10%;
+            padding-right: 4%;
+            box-shadow: 0.1cm 0px 0.4cm #000 inset;
+        }
+
+        #dqname {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            color: #fff;
+            padding-top: 0.3cm;
+            padding-bottom: 1%;
+            text-align: left;
+            z-index: 4;
+        }
+
+        #sdqname {
+            padding-left: 5%;
+        }
+
+        #bgp {
+            width: 50%;
+            display: block;
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+            z-index: 2;
+        }
+
+        [name="clist"] {
+            position: relative;
+            top: 5%;
+            height: 80%;
+            overflow: auto;
+            white-space: nowrap;
+        }
+
+        #blist {
+            white-space: normal;
+            overflow-x: hidden;
+        }
+
+        [name="bblock"] {
+            display: inline-block;
+            position: relative;
+            text-align: center;
+        }
+
+        .block {
+            position: absolute;
+            left: 10%;
+            width: 80%;
+            height: 80%;
+            font-size: 1.8cm;
+            top: 0cm;
+            cursor: pointer;
+        }
+
+        .blockt {
+            position: absolute;
+            top: 2.4cm;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+        }
+
+        #don {
+            color: aqua;
+            position: absolute;
+            right: 5%;
+            top: 0.4cm;
+            cursor: pointer;
+            height: 33px;
+            display: none;
+        }
+
+        .download.icon {
+            display: inline-block;
+            color: aqua;
+            position: absolute;
+            margin-top: 20px;
+            margin-left: 5px;
+            width: 26px;
+            height: 8px;
+            border-radius: 2px;
+            border: solid 2px currentColor;
+            border-top: none;
+        }
+
+        .download.icon:before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: -18px;
+            width: 2px;
+            height: 20px;
+            background-color: currentColor;
+        }
+
+        .download.icon:after {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: -8px;
+            width: 8px;
+            height: 8px;
+            border-top: solid 2px currentColor;
+            border-right: solid 2px currentColor;
+            -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div style="width: 1cm;" id="onecm"></div>
+    <h1 style="display: block;" id="oneh1em">啊哈哈</h1>
+    <div id="tree" style="display: none;">
+        $		fix/		,	CCPIRA混合logo;
+        $$		middle/		,	小全称logo;
+        $$$		11.png		,	白有底带小全称;
+        $$		short/		,	简称logo;
+        $$$		10.png		,	无底白logo带简称;
+        $$$		11.png		,	有底白logo带简称;
+        $		formal/		,	正式logo;
+        $$		000.png		,	无底黑logo;
+        $$		000.svg		,	无底黑矢量logo;
+        $$		010.png		,	有底黑logo;
+        $$		010.svg		,	有底黑矢量logo;
+        $$		100.png		,	无底白logo;
+        $$		100.svg		,	无底白矢量logo;
+        $$		110.png		,	有底白logo;
+        $$		110.svg		,	有底白矢量logo;
+        $		ico/		,	图标文件;
+        $$		others/		,	其他图标;
+        $$$		comic.ico	,	滑稽;
+        $$$		eye.ico		,	CCPIRA之眼;
+        $$$		infos.ico	,	于谦之父;
+        $$		origin/		,	经典logo;
+        $$$		000.ico		,	无底黑logo;
+        $$$		001.ico		,	无底黑带字logo;
+        $$$		010.ico		,	有底黑logo;
+        $$$		011.ico		,	有底黑带字logo;
+        $$$		100.ico		,	无底白logo;
+        $$$		101.ico		,	无底白带字logo;
+        $$$		110.ico		,	有底白logo;
+        $$$		111.ico		,	有底白带字logo;
+        $$		formal/		,	正式logo;
+        $$$		000-128.ico	,	无底黑logo-128*128;
+        $$$		000-48.ico	,	无底黑logo48*48;
+        $$$		000-64.ico	,	无底黑logo64*64;
+        $$$		010-128.ico	,	有底黑logo128*128;
+        $$$		010-48.ico	,	有底黑logo48*48;
+        $$$		010-64.ico	,	有底黑logo64*64;
+        $$$		100-128.ico	,	无底白logo128*128;
+        $$$		100-48.ico	,	无底白logo48*48;
+        $$$		100-64.ico	,	无底白logo64*64;
+        $$$		110-128.ico	,	有底白logo128*128;
+        $$$		110-48.ico	,	有底白logo48*48;
+        $$$		110-64.ico	,	有底白logo64*64;
+        $		origin/		,	经典logo;
+        $$		000.png		,	无底黑logo;
+        $$		001.png		,	无底黑带字logo;
+        $$		010.png		,	有底黑logo;
+        $$		011.png		,	有底黑带字logo;
+        $$		100.png		,	无底白logo;
+        $$		101.png		,	无底白带字logo;
+        $$		110.png		,	有底白logo;
+        $$		111.png		,	有底白带字logo;
+        $		others/		,	其他图片;
+        $$		bg.svg		,	这个网页的背景;
+        $		photo/		,	美丽照片;
+        $$		qd/		,	青岛摄影;
+        $$$		DSC07747.JPG	,	海水浴场附近，官网首页背景;
+        $$$		good/		,	拍的不错的照片;
+        $$$$		down/		,	横向照片;
+        $$$$$		0.JPG		,	0号青岛照片;
+        $$$$$		1.JPG		,	1号青岛照片;
+        $$$$$		2.JPG		,	2号青岛照片;
+        $$$$$		3.JPG		,	3号青岛照片;
+        $$$$$		4.JPG		,	4号青岛照片;
+        $$$$$		5.JPG		,	5号青岛照片;
+        $$$$$		6.JPG		,	6号青岛照片;
+        $$$$$		7.JPG		,	7号青岛照片;
+        $$$$$		8.JPG		,	8号青岛照片;
+        $$$$$		9.JPG		,	9号青岛照片;
+    </div>
+    <div id="look" onmousedown="sctl()" onmouseup="scmd=0;scdX=scac;scdY=scak">
+        <div id="dqname">
+            <div id="sdqname">
+                未打开任何图片<br /><a>&#12288;</a>
+            </div>
+            <a id="don" onclick="cg(name)">
+                <div id="mscg" style="display: inline-block;margin-top: 0.1cm;">&#12288;&#12288;&#12288;</div>
+                <div class="download icon"></div>&#12288;&#12288;
+            </a>
+        </div>
+        <div style="width: 100%;height: 100%;z-index: 3;position: absolute;left: 0;top: 0;" id="sfcur"></div>
+        <img src="others/bg.svg" id="bgp" alt="CCPIRA" />
+    </div>
+    <div id="menu" onmouseover="ove=0">
+        <div id="smenu">
+            <div id="aologo">
+                <h1 id="hlogo">
+                    <a style="white-space: nowrap;">CCPIRA 图片库</a>
+                </h1>
+            </div>
+            <br /><br />
+            <div id="cst">
+                <button onclick="cstf(1)" style="cursor: pointer">
+                    切换视图
+                </button>
+                <div style="display: inline-block;width: 1cm;"></div>
+                <a style="white-space: nowrap;">
+                    背景颜色
+                    <input id="cbgcp" type="color" onchange="look.style.background=value" value="#555555" />
+                </a>
+            </div><br />
+            <div id="tlist" name="clist"></div>
+            <div id="ddqwz">当前位置：./<div id="dqwz" style="display: inline;"></div>
+            </div><br />
+            <div name="clist" id="blist"></div>
+            <div style="width: 1em;" id="oneem"></div>
+        </div>
+    </div>
+</body>
+
+</html>
