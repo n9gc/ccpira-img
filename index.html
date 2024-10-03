@@ -153,7 +153,8 @@
             don.style.display = "block"
             don.name = url.replace(/[^/]+$/g, "") + u
             bgp.src = u
-            sdqname.innerHTML = "当前正在查看：" + l + "<br />路径：<a href='" + u + "' style='color: aqua'>http://seventop.top/img/" + u + "</a>";
+            sdqname.innerHTML = "当前正在查看：" + l + "<br />路径：<a href='" + u + "' style='color: aqua'>" + location.href
+ + u + "</a>";
             sfcur.style.cursor="move";
         }
         function cstf(n) {
